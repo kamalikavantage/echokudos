@@ -1,5 +1,5 @@
 const TABS = [
-  { id: "record", label: "Record", icon: "🎙️" },
+  { id: "record", label: "Recognize", icon: "🙌" },
   { id: "feed", label: "Feed", icon: "💬" },
   { id: "reel", label: "Highlight Reel", icon: "✨" },
 ];

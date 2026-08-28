@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import NavBar from "./components/NavBar";
 import AnniversaryBanner from "./components/AnniversaryBanner";
-import RecordRecognition from "./components/RecordRecognition";
+import SendRecognition from "./components/SendRecognition";
 import RecognitionFeed from "./components/RecognitionFeed";
 import HighlightReel from "./components/HighlightReel";
 import Toast from "./components/Toast";
@@ -53,7 +53,7 @@ export default function App() {
       {/* All three tabs stay mounted (hidden via CSS) so in-progress recording, playback,
           and the highlight reel's compiled state survive switching tabs. */}
       <div style={{ display: tab === "record" ? "block" : "none" }}>
-        <RecordRecognition onSend={handleSend} />
+        <SendRecognition onSend={handleSend} />
       </div>
       <div style={{ display: tab === "feed" ? "block" : "none" }}>
         <RecognitionFeed recognitions={recognitions} />

@@ -16,6 +16,37 @@ export function getPerson(id) {
   return ALL_PEOPLE.find((p) => p.id === id) || CURRENT_USER;
 }
 
+export const RECOGNITION_TYPES = [
+  {
+    id: "appreciation",
+    label: "Appreciation",
+    emoji: "🙌",
+    description: "A quick, informal thank-you for something great they did.",
+  },
+  {
+    id: "nomination",
+    label: "Nomination",
+    emoji: "🏆",
+    description: "Put them forward for a formal award or spotlight.",
+  },
+];
+
+export const BADGES = [
+  { id: "team-player", label: "Team Player", emoji: "🤝", color: "#0ea5e9" },
+  { id: "above-beyond", label: "Above & Beyond", emoji: "🚀", color: "#f97316" },
+  { id: "innovator", label: "Innovator", emoji: "💡", color: "#eab308" },
+  { id: "customer-hero", label: "Customer Hero", emoji: "🛡️", color: "#ec4899" },
+  { id: "culture-champion", label: "Culture Champion", emoji: "🌟", color: "#9333ea" },
+];
+
+export function getBadge(id) {
+  return BADGES.find((b) => b.id === id) || null;
+}
+
+export function getRecognitionType(id) {
+  return RECOGNITION_TYPES.find((t) => t.id === id) || RECOGNITION_TYPES[0];
+}
+
 export const TONE_TAGS = [
   { label: "Enthusiastic", emoji: "🔥", tint: "#f97316" },
   { label: "Heartfelt", emoji: "🙏", tint: "#9333ea" },
@@ -65,6 +96,8 @@ export const SEED_RECOGNITIONS = [
     id: "seed-1",
     senderId: "marcus",
     recipientId: "priya",
+    type: "appreciation",
+    badgeId: "team-player",
     transcript:
       "Priya, the way you facilitated the design review today was incredible. You made space for every voice in the room and we landed on a much better direction because of it. Thank you.",
     tone: TONE_TAGS[1], // Heartfelt
@@ -77,6 +110,8 @@ export const SEED_RECOGNITIONS = [
     id: "seed-2",
     senderId: "daniel",
     recipientId: "priya",
+    type: "appreciation",
+    badgeId: "above-beyond",
     transcript:
       "Just wanted to say thank you for the quick turnaround on those mockups before the client call. It genuinely helped us close the deal.",
     tone: TONE_TAGS[4], // Appreciative
@@ -89,6 +124,8 @@ export const SEED_RECOGNITIONS = [
     id: "seed-3",
     senderId: "sofia",
     recipientId: "priya",
+    type: "nomination",
+    badgeId: "culture-champion",
     transcript:
       "One year at the company already! Priya, you've shaped this team's culture more than you know. So grateful you're here.",
     tone: TONE_TAGS[2], // Warm
@@ -101,6 +138,8 @@ export const SEED_RECOGNITIONS = [
     id: "seed-4",
     senderId: "aisha",
     recipientId: "marcus",
+    type: "appreciation",
+    badgeId: "customer-hero",
     transcript:
       "Thank you for staying late to help me debug that customer issue. You didn't have to, and it really mattered.",
     tone: TONE_TAGS[3], // Inspiring
@@ -113,6 +152,8 @@ export const SEED_RECOGNITIONS = [
     id: "seed-5",
     senderId: "priya",
     recipientId: "sofia",
+    type: "appreciation",
+    badgeId: "innovator",
     transcript:
       "Sofia, thank you for how you handled that sensitive conversation with the team. So much care and clarity — you're amazing at this.",
     tone: TONE_TAGS[0], // Enthusiastic

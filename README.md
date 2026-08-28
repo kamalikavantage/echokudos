@@ -1,8 +1,10 @@
 # EchoKudos 🔊
 
-A front-end prototype of a voice-based employee recognition feature: record a short
-voice note thanking a teammate, get it transcribed and turned into a shareable
-"recognition card," and compile someone's received notes into a **Highlight Reel**.
+A front-end prototype of an R&R (rewards & recognition) sending flow, where voice is
+one input option alongside typing: pick **Appreciation or Nomination** → pick a
+**recipient** → pick a **badge** → then **write** the message or **record** it and let
+transcription write it for you. Sent recognitions land in a card **Feed**, and a
+recipient's voice notes can be compiled into a **Highlight Reel**.
 
 This is a demo, not a production system — no backend, no database. Everything lives
 in React state and resets on page reload.
@@ -16,6 +18,21 @@ npm run dev
 
 Open the printed local URL in **Chrome or Edge** for the fullest experience (see
 "What's mocked" below re: browser support). Grant microphone access when prompted.
+
+## The flow
+
+1. **Type** — Appreciation (quick thank-you) or Nomination (formal spotlight).
+2. **Recipient** — pick a teammate from the mock directory.
+3. **Badge** — pick one of five mock badges.
+4. **Message** — a **Write / Record** toggle. Write is a plain text box. Record runs
+   the full voice pipeline (mic capture, live waveform, live transcription) and drops
+   the transcript straight into the same text box, already editable. Switching back to
+   Write drops the attached audio but keeps whatever text was transcribed — the voice
+   note effectively "became" the written message.
+
+Only recognitions sent through Record (with a completed clip) carry playable audio,
+a waveform, and a tone tag; ones sent via Write are text-only cards in the Feed and
+aren't eligible for the Highlight Reel, which chains real audio clips.
 
 ## What's real
 
@@ -57,19 +74,23 @@ Open the printed local URL in **Chrome or Edge** for the fullest experience (see
   work-anniversary date rather than being hardcoded.
 - **The org directory** — 5 mock teammates plus "You" as the current user. No auth, no
   real identities.
+- **Badges and recognition types** — Appreciation/Nomination and the 5 badges are
+  static mock options with no workflow behind them (a real Nomination would typically
+  route to an approval process; here it's just a label on the card).
 
 ## Structure
 
 ```
 src/
-  data/mockData.js         teammates, tone tags, seed recognitions, mock transcripts
+  data/mockData.js         teammates, badges, types, tone tags, seed data, mock transcripts
   utils/audio.js           WAV encoding, placeholder clip synthesis, peak extraction
   hooks/useAudioRecorder.js       MediaRecorder + AnalyserNode
   hooks/useSpeechRecognition.js  SpeechRecognition wrapper w/ fallback
   hooks/useAudioPlayback.js      <audio> element wrapper for waveform players
   components/
-    RecordRecognition.jsx  record → review/transcript → send
-    RecognitionFeed.jsx    card feed of all recognitions
+    SendRecognition.jsx    4-step flow: type → recipient → badge → write/record
+    StepProgress.jsx       step indicator for the flow above
+    RecognitionFeed.jsx    card feed of all recognitions (voice + written)
     HighlightReel.jsx      compile + chained playback + share
     NavBar.jsx, Avatar.jsx, LiveWaveform.jsx, StaticWaveformPlayer.jsx,
     Toast.jsx, AnniversaryBanner.jsx
